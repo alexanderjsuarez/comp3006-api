@@ -130,7 +130,7 @@ describe("concerts api intergration test", () => {
     describe("/DELETE /api/concerts/id", () => {
         it("should return status 200", (done) => {
             chai.request(app)
-                .put("/api/concerts/" + id)
+                .delete("/api/concerts/" + id)
                 .then((res) => {
                     expect(res).to.have.status(200);
                     done();
