@@ -5,7 +5,6 @@ let {app} = require("../server");
 
 chai.use(chaiHttp);
 describe("concerts api intergration test", () => {
-    after();
     let id;
     describe("/GET /api/concerts", () => {
         it("should get response code 200", (done) => {
