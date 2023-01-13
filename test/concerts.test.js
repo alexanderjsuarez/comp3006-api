@@ -4,12 +4,8 @@ let chaiHttp = require("chai-http");
 let {app} = require("../server");
 
 chai.use(chaiHttp);
-before(function (done) {
-    this.timeout(3000);
-    setTimeout(done, 2000);
-});
-
 describe("concerts api intergration test", () => {
+    after();
     let id;
     describe("/GET /api/concerts", () => {
         it("should get response code 200", (done) => {
