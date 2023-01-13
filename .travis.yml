@@ -1,0 +1,17 @@
+os: windows
+language: node_js
+node_js:
+- 18
+before_install:
+  - npm i -g npm@8.19.3
+install:
+- npm ci
+deploy:
+  provider: heroku
+  skip_cleanup: true
+  strategy: git
+  api_key:
+    secure: B62PQiOhTyYWxnNqxcyCHyBEecQtGQ3OfyKRGzAyDA6VmrW4vLiyTuHLaF4nctIniDi2iUyE75vSxwRFrYycs/YLRCDHln2T6r12+Jlnrojip3IPTF8zlDMNAd9FYUc73S9AVWBiLNjfR/6tuDPVoB7AUrK2/hwfN7oio3WSaOQwHh/ftq0o7UDUh7Xg12dfoASskKYi9zp1RaTW7luldTkVekU+x40BWcRRuBfFYzykXTUABxSEbl1Xi4uH2T+K/F9cyZFtZk1gMUfde6QDhngMOhlkbc+5HTIoS+IUQEh6dXiBA6vIAP90O1Od0NyAXUjHZ/uyo+OX9d7iC34DiJGMjvLrpaayR9XzdxKip9LU5FARZY18CefUw8ispP9lhRBUy5hk++TyIwosZvkvUs/K14KiL2naPN7BtE3d2cyMN4ZUNgdHHshvHrHaIyfrnKO5X6ABAc31GEYpqt9TgG4r62jI1sOHKmn+QvgRhmWVcLOlQtuqMu5FCfU3UUcwI2Zq+4U9ZhwYJyAFIoQaDniKgbn1LvrSUTqrgkdN2MNH0R7NYVuq1Ob7txaJSi//9kDmPNHdwZvJmFIGPhSd82O+TRjIKEx6domknjTRaftgVyW2OHdEGYdhGJy4VrpFrCIf+BN60S+o3NRJh17dVdqoYXFmUSQBImpr26ufLDw=
+  app:
+    main: comp3006-api
+cache: npm
