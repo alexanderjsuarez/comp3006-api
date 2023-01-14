@@ -24,10 +24,7 @@ db.mongoose
         process.exit();
     });
 // add cors middleware and body parser (json, urlencoded)
-let corsOptions = {
-    origin: "http://localhost:3001"
-};
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 // define base route
