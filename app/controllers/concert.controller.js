@@ -60,7 +60,8 @@ exports.create = (req, res) => {
         name: req.body.name,
         location: req.body.location,
         genre: req.body.genre,
-        date: req.body.date
+        date: req.body.date,
+        twitterHandle: req.body.twitterHandle
     });
     // post concert to db
     concert

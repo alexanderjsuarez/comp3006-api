@@ -6,11 +6,11 @@ module.exports = mongoose => {
           name: String,
           location: String,
           genre: String,
-          date: Date
+          date: Date,
+          twitterHandle: String
         },
         { timestamps: true }
       )
     );
-  
     return Concert;
   };
