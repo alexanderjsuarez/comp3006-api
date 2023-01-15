@@ -4,10 +4,18 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const db = require("./app/models")
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
 const PORT = process.env.PORT || 3000;
 const dbName = (process.env.NODE_ENV === "testing" ? "concerto-test" : "concerto");
+
+// add cors middleware and body parser (json, urlencoded)
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+// create socket
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
 
 // connect to mongodb
 db.mongoose.set('strictQuery', false);
@@ -25,11 +33,6 @@ db.mongoose
         process.exit();
     });
 
-// add cors middleware and body parser (json, urlencoded)
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-
 // define base route
 app.get("/", (req, res) => {
     res.json({message: "This is the root of the api."});
@@ -43,7 +46,7 @@ server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-// socket.io
+// socket.io events
 // this runs when a client joins
 io.on('connection', (socket) => {
     let nameChosen = false;
