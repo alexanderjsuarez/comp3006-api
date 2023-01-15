@@ -3,7 +3,8 @@ require('dotenv').config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const db = require("./app/models")
+const db = require("./app/models");
+const { use } = require('chai');
 const PORT = process.env.PORT || 3000;
 const dbName = (process.env.NODE_ENV === "testing" ? "concerto-test" : "concerto");
 
@@ -14,9 +15,11 @@ app.use(express.urlencoded({extended: true}));
 
 // create socket
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
-
-
+const io = require('socket.io')(server, {
+    cors: {
+      origin: '*',
+    }
+  });
 // connect to mongodb
 db.mongoose.set('strictQuery', false);
 db.mongoose
@@ -50,36 +53,30 @@ server.listen(PORT, () => {
 // this runs when a client joins
 io.on('connection', (socket) => {
     let nameChosen = false;
-
     // let client chosoe name for the chatroom
-    socket.on('chooseName', (username) => {
+    socket.on('choose name', (username) => {
         // check the client hasn't already chosen a name
         if(nameChosen) return;
-
         socket.username = username;
         nameChosen = true;
-
         // broadcast to room a new user has joined
-        socket.broadcast.emit('user joined' , {
-            username: socket.username
-        });
+        socket.broadcast.emit('user joined' , username);
     });
 
     // broadcast to the room when a user disconnects
     socket.on('disconnect', (username) => {
         // no name to broadcast if user hasnt chosen a name
-        if(nameChosen) return;
+        if(!nameChosen) return;
 
-        socket.broadcst.emit('user left', {
+        socket.broadcast.emit('user left', {
             username: socket.username
         });
     });
-
     // broadcast to the room when client sends a message
-    socket.on('new message', (data) => {
+    socket.on('new message', (message) => {
         socket.broadcast.emit('new message', {
-          username: socket.username,
-          message: data
+            username: socket.username,
+            message: message
         });
       });
 })
