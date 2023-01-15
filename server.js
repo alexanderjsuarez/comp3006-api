@@ -4,7 +4,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const db = require("./app/models");
-const { use } = require('chai');
 const PORT = process.env.PORT || 3000;
 const dbName = (process.env.NODE_ENV === "testing" ? "concerto-test" : "concerto");
 
