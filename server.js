@@ -37,7 +37,7 @@ db.mongoose
 
 // define base route
 app.get("/", (req, res) => {
-    res.json({message: "Demonstration"});
+    res.json({message: "This is the Concerto API"});
 });
 
 // add additional routes
