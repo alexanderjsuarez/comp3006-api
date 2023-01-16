@@ -37,7 +37,7 @@ db.mongoose
 
 // define base route
 app.get("/", (req, res) => {
-    res.json({message: "This is the root of the api."});
+    res.json({message: "Demonstration"});
 });
 
 // add additional routes
